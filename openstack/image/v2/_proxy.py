@@ -10,12 +10,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import json
 import time
 import warnings
 
 from openstack import exceptions
 from openstack.image import _base_proxy
 from openstack.image.v2 import image as _image
+from openstack.image.v2 import md_property as _md_property
 from openstack.image.v2 import member as _member
 from openstack.image.v2 import schema as _schema
 from openstack.image.v2 import service_info as _si
@@ -667,6 +669,50 @@ class Proxy(_base_proxy.BaseImageProxy):
         image_id = resource.Resource._get_id(image)
         return self._update(_member.Member, member_id=member_id,
                             image_id=image_id, **attrs)
+
+    def add_md_property(self, namespace_name, json_schema, **attrs):
+        # TODO(eunyoung) Docs
+        # TODO(eunyoung): API Response handling, 4xx
+        attrs = json.loads(json_schema)  # TODO(eunyoung): Exception handling
+        return self._create(_md_property.MDProperty,
+                            namespace_name=namespace_name, **attrs)
+
+    def remove_md_property(self, property_name, namespace_name,
+                           ignore_missing=True):
+        # TODO(eunyoung) Docs
+        self._delete(_md_property.MDProperty,
+                     property_name=property_name,
+                     namespace_name=namespace_name,
+                     ignore_missing=ignore_missing)
+
+    def find_md_property(self, name_or_id, namespace_name,
+                         ignore_missing=True):
+        # TODO(eunyoung) Docs
+        base_path = '/metadefs/namespaces/{}/properties/{}'.format(
+            namespace_name, name_or_id)
+        return self._find(_md_property.MDProperty, name_or_id,
+                          base_path=base_path, ignore_missing=ignore_missing)
+
+    def get_md_property(self, property_name, namespace_name):
+        # TODO(eunyoung) Docs
+        base_path = '/metadefs/namespaces/{}/properties/{}'.format(
+            namespace_name, property_name)
+        return self._get(_md_property.MDProperty, requires_id=False,
+                         base_path=base_path)
+
+    def md_properties(self, namespace_name):
+        # TODO(eunyoung) Docs
+        return self._list(_md_property.MDProperty,
+                          namespace_name=namespace_name)
+
+    def update_md_property(self, property_name, namespace_name, json_schema,
+                           **attrs):
+        # TODO(eunyoung) Docs
+        attrs = json.loads(json_schema)  # TODO(eunyoung): Exception handling
+        base_path = '/metadefs/namespaces/{}/properties/{}'.format(
+            namespace_name, property_name)
+        return self._update(_md_property.MDProperty,
+                            base_path=base_path, **attrs)
 
     def get_images_schema(self):
         """Get images schema
