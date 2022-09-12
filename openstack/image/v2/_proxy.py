@@ -16,6 +16,7 @@ import warnings
 from openstack import exceptions
 from openstack.image import _base_proxy
 from openstack.image.v2 import image as _image
+from openstack.image.v2 import md_schema as _md_schema
 from openstack.image.v2 import member as _member
 from openstack.image.v2 import schema as _schema
 from openstack.image.v2 import service_info as _si
@@ -841,3 +842,103 @@ class Proxy(_base_proxy.BaseImageProxy):
             when no resource can be found.
         """
         return self._get(_si.Import, require_id=False)
+
+    def get_md_namespace_schema(self):
+        """Get metadata definition namespace schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/namespace')
+
+    def get_md_namespaces_schema(self):
+        """Get metadata definition namespaces schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/namespaces')
+
+    def get_md_resource_type_schema(self):
+        """Get metadata definition resource type association schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/resource_type')
+
+    def get_md_resource_types_schema(self):
+        """Get metadata definition resource type associations schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/resource_types')
+
+    def get_md_object_schema(self):
+        """Get metadata definition object schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/object')
+
+    def get_md_objects_schema(self):
+        """Get metadata definition objects schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/objects')
+
+    def get_md_property_schema(self):
+        """Get metadata definition property schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/property')
+
+    def get_md_properties_schema(self):
+        """Get metadata definition properties schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/properties')
+
+    def get_md_tag_schema(self):
+        """Get metadata definition tag schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/tag')
+
+    def get_md_tags_schema(self):
+        """Get metadata definition tags schema
+
+        :returns: One :class:`~openstack.image.v2.md_schema.MDSchema`
+        :raises: :class:`~openstack.exceptions.ResourceNotFound`
+            when no resource can be found.
+        """
+        return self._get(_md_schema.MDSchema, requires_id=False,
+                         base_path='/schemas/metadefs/tags')
