@@ -233,6 +233,29 @@ class BaseImageProxy(proxy.Proxy, metaclass=abc.ABCMeta):
     ):
         pass
 
+    # @abc.abstractmethod
+    # def _create_metadata_properties(self, image, meta, properties):
+    #     pass
+
+    def create_metadata_properties(
+            self, namespace, name, title, **kwargs):
+
+        metadata_properties_kwargs = dict(properties=kwargs)
+
+        if name:
+            metadata_properties_kwargs['name'] = name
+        if namespace:
+            metadata_properties_kwargs['namespace'] = namespace
+        if title:
+            metadata_properties_kwargs['title'] = title
+        if 'properties' in kwargs.keys():
+            metadata_properties_kwargs['properties'] = kwargs['properties']
+
+        metadata_properties = self._create_metadata_properties(**metadata_properties_kwargs)
+        self._connection._get_cache(None).invalidate()
+        print("_base_proxy")
+        return metadata_properties
+
     @abc.abstractmethod
     def _update_image_properties(self, image, meta, properties):
         pass
