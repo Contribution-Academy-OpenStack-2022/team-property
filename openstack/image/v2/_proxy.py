@@ -20,6 +20,7 @@ from openstack.image.v2 import member as _member
 from openstack.image.v2 import schema as _schema
 from openstack.image.v2 import service_info as _si
 from openstack.image.v2 import task as _task
+from openstack.image.v2 import metadef as _metadef
 from openstack import resource
 from openstack import utils
 
@@ -841,3 +842,6 @@ class Proxy(_base_proxy.BaseImageProxy):
             when no resource can be found.
         """
         return self._get(_si.Import, require_id=False)
+    def create_metatdef_property(self, **attrs):
+
+        return self._create(_metadef.Metadef, **attrs)
