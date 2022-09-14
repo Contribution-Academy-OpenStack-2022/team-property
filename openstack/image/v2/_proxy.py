@@ -23,6 +23,8 @@ from openstack.image.v2 import task as _task
 from openstack import resource
 from openstack import utils
 
+from openstack.image.v2 import metadef as _metadef
+
 # Rackspace returns this for intermittent import errors
 _IMAGE_ERROR_396 = "Image cannot be imported. Error code: '396'"
 _INT_PROPERTIES = ('min_disk', 'min_ram', 'size', 'virtual_size')
@@ -35,6 +37,9 @@ class Proxy(_base_proxy.BaseImageProxy):
         """Create image resource from attributes
         """
         return self._create(_image.Image, **kwargs)
+
+    def create_metadata_property(self, **kwargs):
+        return self._create(_metadef.Property, **kwargs)
 
     def import_image(
         self, image, method='glance-direct', uri=None,
