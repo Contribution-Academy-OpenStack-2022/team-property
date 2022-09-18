@@ -279,3 +279,25 @@ class BaseImageProxy(proxy.Proxy, metaclass=abc.ABCMeta):
             return (os.path.basename(name), name_with_ext)
 
         return (name, None)
+
+    @abc.abstractmethod
+    def _create_metadata_property(self, **image_kwargs):
+        pass
+
+    def create_metadata_property(
+            self, namespace, name, title, schema, **kwargs):
+
+        metadata_properties_kwargs = dict(properties=kwargs)
+
+        if namespace:
+            metadata_properties_kwargs['namespace'] = namespace
+        if name:
+            metadata_properties_kwargs['name'] = name
+        if title:
+            metadata_properties_kwargs['title'] = title
+        if schema:
+            metadata_properties_kwargs['schema'] = schema
+
+        metadata_properties = self._create_metadata_property(**metadata_properties_kwargs)
+        self._connection._get_cache(None).invalidate()
+        return metadata_properties
