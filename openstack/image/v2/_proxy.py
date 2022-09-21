@@ -855,9 +855,26 @@ class Proxy(_base_proxy.BaseImageProxy):
 
     def delete_metadef_property(self, property, namespace,
                                 ignore_missing=True):
-        # TODO(team): implementation
+        """Delete a metadef property
+
+        :param property: The value can be the ID of a metadef property or a
+            :class:`~openstack.image.v2.metadef_property.MetadefProperty`
+            instance.
+        :param namespace: The value can be either the ID of a
+            metadef namespace or a
+            :class:`~openstack.image.v2.metadef_namespace.MetadefNamespace`
+            instance.
+        :param bool ignore_missing: When set to
+            ``False`` :class:`~openstack.exceptions.ResourceNotFound` will be
+            raised when the instance does not exist. When set to ``True``,
+            no exception will be set when attempting to delete a nonexistent
+            instance.
+
+        :returns: ``None``
+        """
         return self._delete(_metadef_property.MetadefProperty,
-                            name=property, namespace_name=namespace)
+                            name=property, namespace_name=namespace,
+                            ignore_missing=ignore_missing)
 
     def metadef_properties(self, namespace, **query):
         # TODO(team): implementation
