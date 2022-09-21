@@ -6,7 +6,8 @@ openstack.image.v2.metadef_property
 The MetadefProperty Class
 -------------------------
 
-The ``MetadefProperty`` class inherits from :class:`~openstack.resource.Resource`.
+The ``MetadefProperty`` class inherits from
+:class:`~openstack.resource.Resource`.
 
 .. autoclass:: openstack.image.v2.metadef_property.MetadefProperty
    :members:
@@ -14,7 +15,8 @@ The ``MetadefProperty`` class inherits from :class:`~openstack.resource.Resource
 The MetadefProperties Class
 ---------------------------
 
-The ``MetadefProperties`` class inherits from :class:`~openstack.resource.Resource`.
+The ``MetadefProperties`` class inherits from
+:class:`~openstack.resource.Resource`.
 
 .. autoclass:: openstack.image.v2.metadef_property.MetadefProperties
    :members:
