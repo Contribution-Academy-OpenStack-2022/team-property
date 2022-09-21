@@ -17,6 +17,7 @@ from openstack import exceptions
 from openstack.image import _base_proxy
 from openstack.image.v2 import image as _image
 from openstack.image.v2 import member as _member
+from openstack.image.v2 import metadef_property as _metadef_property
 from openstack.image.v2 import schema as _schema
 from openstack.image.v2 import service_info as _si
 from openstack.image.v2 import task as _task
@@ -841,3 +842,46 @@ class Proxy(_base_proxy.BaseImageProxy):
             when no resource can be found.
         """
         return self._get(_si.Import, require_id=False)
+
+    def create_metadef_property(self, namespace, **attrs):
+        # TODO(team): implementation
+        return self._create(_metadef_property.MetadefProperty,
+                            namespace_name=namespace, **attrs)
+
+    def update_metadef_property(self, property, namespace, **attrs):
+        # TODO(team): implementation
+        return self._update(_metadef_property.MetadefProperty,
+                            namespace_name=namespace, **attrs)
+
+    def delete_metadef_property(self, property, namespace,
+                                ignore_missing=True):
+        """Delete a metadef property
+
+        :param property: The value can be the ID of a metadef property or a
+            :class:`~openstack.image.v2.metadef_property.MetadefProperty`
+            instance.
+        :param namespace: The value can be either the ID of a
+            metadef namespace or a
+            :class:`~openstack.image.v2.metadef_namespace.MetadefNamespace`
+            instance.
+        :param bool ignore_missing: When set to
+            ``False`` :class:`~openstack.exceptions.ResourceNotFound` will be
+            raised when the instance does not exist. When set to ``True``,
+            no exception will be set when attempting to delete a nonexistent
+            instance.
+
+        :returns: ``None``
+        """
+        return self._delete(_metadef_property.MetadefProperty,
+                            name=property, namespace_name=namespace,
+                            ignore_missing=ignore_missing)
+
+    def metadef_properties(self, namespace, **query):
+        # TODO(team): implementation
+        return self._get(_metadef_property.MetadefProperties,
+                         requires_id=False, namespace_name=namespace, **query)
+
+    def get_metadef_property(self, property, namespace):
+        # TODO(team): implementation
+        return self._get(_metadef_property.MetadefProperty, name=property,
+                         namespace_name=namespace)

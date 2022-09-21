@@ -51,3 +51,20 @@ Service Info Discovery Operations
 .. autoclass:: openstack.image.v2._proxy.Proxy
   :noindex:
   :members: stores, get_import_info
+
+
+MetadefProperty Operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: openstack.image.v2._proxy.Proxy
+  :noindex:
+  :members: create_metadef_property, update_metadef_property,
+            delete_metadef_property, get_metadef_property
+
+
+MetadefProperties Operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: openstack.image.v2._proxy.Proxy
+  :noindex:
+  :members: metadef_properties
