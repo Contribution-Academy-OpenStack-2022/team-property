@@ -861,8 +861,8 @@ class Proxy(_base_proxy.BaseImageProxy):
 
     def metadef_properties(self, namespace, **query):
         # TODO(team): implementation
-        return self._get(_metadef_property.MetadefProperty, requires_id=False,
-                         namespace_name=namespace, **query)
+        return self._get(_metadef_property.MetadefProperties,
+                         requires_id=False, namespace_name=namespace, **query)
 
     def get_metadef_property(self, property, namespace):
         # TODO(team): implementation

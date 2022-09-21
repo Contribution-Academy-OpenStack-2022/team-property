@@ -21,29 +21,64 @@ class MetadefProperty(resource.Resource):
     allow_fetch = True
     allow_commit = True
     allow_delete = True
-    allow_list = True
 
-    _store_unknown_attrs_as_properties = True
-    _allow_unknown_attrs_in_body = True
-
-    # TODO(eunyoung): Add more attrs & docstring
+    #: An identifier (a name) for the namespace.
     namespace_name = resource.URI('namespace_name')
 
+    #: The name of the property
     name = resource.Body('name', alternate_id=True)
-    title = resource.Body('title')
-    description = resource.Body('description')
-    operators = resource.Body('operators', type=list)
+    #: The property type.
     type = resource.Body('type')
-    required = resource.Body('required')
-    minimum = resource.Body('minimum', type=int)
-    maximum = resource.Body('maximum', type=int)
-    maxLength = resource.Body('maxLength', type=int, minimum=0)
-    minLength = resource.Body('minLength', type=int, minimum=0, default=0)
-    pattern = resource.Body('pattern')
-    enum = resource.Body('enum', type=list)
+    #: The title of the property.
+    title = resource.Body('title')
+    #: Detailed description of the property.
+    description = resource.Body('description')
+    #: A list of operator
+    operators = resource.Body('operators', type=list)
+    #: Default property description.
+    default = resource.Body('default')
+    #: Indicates whether this is a read-only property.
     readonly = resource.Body('readonly', type=bool)
-    maxItems = resource.Body('maxItems', type=int, minimum=0)
-    minItems = resource.Body('minItems', type=int, minimum=0, default=0)
+    #: Minimum allowed numerical value.
+    minimum = resource.Body('minimum', type=int)
+    #: Maximum allowed numerical value.
+    maximum = resource.Body('maximum', type=int)
+    #: Enumerated list of property values.
+    enum = resource.Body('enum', type=list)
+    #: A regular expression ( `ECMA 262 <http://www.ecma-international.org
+    # /publications/standards/Ecma-262.htm>`_ )
+    #: that a string value must match.
+    pattern = resource.Body('pattern')
+    #: Minimum allowed string length.
+    minLength = resource.Body('minLength', type=int, minimum=0, default=0)
+    #: Maximum allowed string length.
+    maxLength = resource.Body('maxLength', type=int, minimum=0)
+    #: Schema for the items in an array.
+    items = resource.Body('items', type=dict)
+    #: Indicates whether all values in the array must be distinct.
     uniqueItems = resource.Body('uniqueItems', type=bool, default=False)
+    #: Minimum length of an array.
+    minItems = resource.Body('minItems', type=int, minimum=0, default=0)
+    #: Maximum length of an array.
+    maxItems = resource.Body('maxItems', type=int, minimum=0)
+    #: Describes extra items, if you use tuple typing.  If the value of
+    #: ``items`` is an array (tuple typing) and the instance is longer than
+    #: the list of schemas in ``items``, the additional items are described by
+    #: the schema in this property.  If this value is ``false``, the instance
+    #: cannot be longer than the list of schemas in ``items``.  If this value
+    #: is ``true``, that is equivalent to the empty schema (anything goes).
     additionalItems = resource.Body('additionalItems', type=bool)
+
+
+class MetadefProperties(resource.Resource):
+    base_path = '/metadefs/namespaces/%(namespace_name)s/properties'
+
+    # capabilities
+    allow_fetch = True
+
+    #: An identifier (a name) for the namespace.
+    namespace_name = resource.URI('namespace_name')
+
+    #: A dictionary of key:value pairs, where each value is a property object
+    #: as defined by the Metadefs Property Schema.
     properties = resource.Body('properties', type=dict)
