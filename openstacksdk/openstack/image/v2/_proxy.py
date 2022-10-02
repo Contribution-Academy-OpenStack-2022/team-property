@@ -24,6 +24,8 @@ from openstack.image.v2 import task as _task
 from openstack import resource
 from openstack import utils
 
+from openstack.image.v2 import metadef as _metadef
+
 # Rackspace returns this for intermittent import errors
 _IMAGE_ERROR_396 = "Image cannot be imported. Error code: '396'"
 _INT_PROPERTIES = ('min_disk', 'min_ram', 'size', 'virtual_size')
@@ -31,6 +33,23 @@ _RAW_PROPERTIES = ('is_protected', 'tags')
 
 
 class Proxy(_base_proxy.BaseImageProxy):
+
+    # ====== PROPERTY ======
+    def create_metadata_property(self, namespace_name, **kwargs):
+        return _metadef.MetadefProperty().create(self, namespace_name, **kwargs)
+
+    def delete_metadata_property(self, namespace_name, property_name):
+        return _metadef.MetadefProperty().delete(self, namespace_name, property_name)
+
+    def show_metadata_property(self, namespace_name, property_name):
+        return _metadef.MetadefProperty().show(self, namespace_name, property_name)
+
+    def update_metadata_property(self, namespace_name, property_name, **kwargs):
+        return _metadef.MetadefProperty().update(self, namespace_name, property_name, **kwargs)
+
+    def list_metadata_property(self, namespace_name):
+        return _metadef.MetadefProperties().list(self, namespace_name)
+
 
     # ====== IMAGES ======
     def _create_image(self, **kwargs):
